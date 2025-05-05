@@ -49,4 +49,4 @@
     "deploy": "hardhat run scripts/deploy.js"
   },
   "license": "GPL-3.0-or-later"
-}
+} 

@@ -52,13 +52,7 @@
     "deploy": "hardhat run scripts/deploy.js",
     "verify": "hardhat run scripts/verify.js",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network baseSepolia",
-    "deploy:mainnet": "hardhat run scripts/deploy.js --network baseMainnet",
-    "deploy:verify:sepolia": "hardhat run scripts/deploy.js --network baseSepolia --verify",
-    "deploy:verify:mainnet": "hardhat run scripts/deploy.js --network baseMainnet --verify",
-    "ignition:deploy:sepolia": "hardhat ignition deploy ignition/modules/EdgenSwap.js --network baseSepolia",
-    "ignition:deploy:mainnet": "hardhat ignition deploy ignition/modules/EdgenSwap.js --network baseMainnet",
-    "ignition:verify:sepolia": "hardhat ignition deploy ignition/modules/EdgenSwap.js --network baseSepolia --verify",
-    "ignition:verify:mainnet": "hardhat ignition deploy ignition/modules/EdgenSwap.js --network baseMainnet --verify"
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network baseMainnet"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {}

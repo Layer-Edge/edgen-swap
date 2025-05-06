@@ -6,7 +6,6 @@ const path = require("path");
 async function main() {
   // Check for verification flag
   let shouldVerify = true;
-  shouldVerify = process.argv.some(arg => arg === '--verify');
   
   // Get network details
   const networkName = hre.network.name;
@@ -91,7 +90,7 @@ async function main() {
   };
   
   // Helper function for verification with delay and retries
-  const verifyContract = async (address, constructorArguments) => {
+  const verifyContract = async (address, constructorArguments, contractName) => {
     // Skip verification if flag not provided
     if (!shouldVerify) {
       console.log("Skipping verification. Use --verify flag to verify contracts.");
@@ -111,6 +110,7 @@ async function main() {
         await hre.run("verify:verify", {
           address,
           constructorArguments,
+          contract: contractName,
         });
         verified = true;
         console.log(`Contract verified successfully at ${address}`);
@@ -146,7 +146,7 @@ async function main() {
   saveDeployment("EdgenSwapERC20", erc20.address, []);
   
   // Verify EdgenSwapERC20
-  await verifyContract(erc20.address, []);
+  await verifyContract(erc20.address, [], "contracts/EdgenSwapERC20.sol:EdgenSwapERC20");
   
   // Deploy the EdgenSwapFactory
   console.log("Deploying EdgenSwapFactory...");
@@ -161,7 +161,7 @@ async function main() {
   saveDeployment("EdgenSwapFactory", factory.address, [feeSetterAddress]);
   
   // Verify EdgenSwapFactory
-  await verifyContract(factory.address, [feeSetterAddress]);
+  await verifyContract(factory.address, [feeSetterAddress], "contracts/EdgenSwapFactory.sol:EdgenSwapFactory");
   
   // Display summary of deployments
   console.log("\n=== Deployment Summary ===");

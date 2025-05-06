@@ -21,8 +21,13 @@ async function main() {
   
   console.log(`Creating pair for tokens: ${tokenAAddress} and ${tokenBAddress}`);
   
+  // Create a signer with private key
+  const privateKey = process.env.PRIVATE_KEY.startsWith('0x') 
+    ? process.env.PRIVATE_KEY 
+    : `0x${process.env.PRIVATE_KEY}`;
+  const signer = new hre.ethers.Wallet(privateKey, hre.ethers.provider);
+  
   // Get the factory contract instance
-  const [signer] = await hre.ethers.getSigners();
   const factory = await hre.ethers.getContractAt("EdgenSwapFactory", factoryAddress, signer);
   
   // Check if pair already exists

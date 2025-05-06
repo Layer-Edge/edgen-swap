@@ -4,3 +4,4 @@ cache-hardhat/
 out/
 cache/
 artifacts/
+.env

@@ -5,8 +5,8 @@ const { expandTo18Decimals } = require("./utilities");
 async function factoryFixture() {
   const [wallet] = await ethers.getSigners();
   
-  const UniswapV2Factory = await ethers.getContractFactory("UniswapV2Factory");
-  const factory = await UniswapV2Factory.deploy(wallet.address);
+  const EdgenSwapFactory = await ethers.getContractFactory("EdgenSwapFactory");
+  const factory = await EdgenSwapFactory.deploy(wallet.address);
   await factory.deployed();
   
   return { factory };
@@ -30,7 +30,7 @@ async function pairFixture() {
   // Create the pair
   await factory.createPair(tokenA.address, tokenB.address);
   const pairAddress = await factory.getPair(tokenA.address, tokenB.address);
-  const pair = await ethers.getContractAt("UniswapV2Pair", pairAddress);
+  const pair = await ethers.getContractAt("EdgenSwapPair", pairAddress);
   
   // Determine token0 and token1
   const token0Address = await pair.token0();

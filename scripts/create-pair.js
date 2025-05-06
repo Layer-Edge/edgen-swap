@@ -6,10 +6,10 @@ async function main() {
   const factoryAddress = process.env.FACTORY_ADDRESS;
   
   if (!factoryAddress) {
-    throw new Error("FACTORY_ADDRESS environment variable is not set. Please set it to the address of the deployed UniswapV2Factory.");
+    throw new Error("FACTORY_ADDRESS environment variable is not set. Please set it to the address of the deployed EdgenSwapFactory.");
   }
   
-  console.log(`Using UniswapV2Factory at: ${factoryAddress}`);
+  console.log(`Using EdgenSwapFactory at: ${factoryAddress}`);
   
   // Get token addresses from command line or environment
   const tokenAAddress = process.env.TOKEN_A_ADDRESS;
@@ -23,7 +23,7 @@ async function main() {
   
   // Get the factory contract instance
   const [signer] = await hre.ethers.getSigners();
-  const factory = await hre.ethers.getContractAt("UniswapV2Factory", factoryAddress, signer);
+  const factory = await hre.ethers.getContractAt("EdgenSwapFactory", factoryAddress, signer);
   
   // Check if pair already exists
   const existingPair = await factory.getPair(tokenAAddress, tokenBAddress);

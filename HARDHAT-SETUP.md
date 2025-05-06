@@ -1,6 +1,6 @@
-# UniswapV2 Hardhat Testing Environment - Setup Summary
+# EdgenSwap Hardhat Testing Environment - Setup Summary
 
-This document summarizes the Hardhat setup created for testing the UniswapV2 contracts.
+This document summarizes the Hardhat setup created for testing the EdgenSwap contracts.
 
 ## Files Created
 
@@ -16,14 +16,14 @@ This document summarizes the Hardhat setup created for testing the UniswapV2 con
 
 ### Deployment Scripts
 
-- **scripts/deploy.js**: Deploys the UniswapV2Factory contract
+- **scripts/deploy.js**: Deploys the EdgenSwapFactory contract
 - **scripts/create-pair.js**: Creates a trading pair between two tokens
 - **scripts/deploy-test-tokens.js**: Deploys test ERC20 tokens for testing pairs
 - **scripts/add-liquidity-and-swap.js**: Adds liquidity to a pair and performs swaps
 
 ### Test Files
 
-- **test-hardhat/unit-test.js**: Regular unit tests for UniswapV2 contracts
+- **test-hardhat/unit-test.js**: Regular unit tests for EdgenSwap contracts
 - **test-hardhat/fork-test.js**: Fork tests that interact with mainnet contracts
 
 ### Documentation

@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("UniswapV2Factory", function () {
+describe("EdgenSwapFactory", function () {
   let factory;
   let wallet;
   let other;
@@ -32,8 +32,8 @@ describe("UniswapV2Factory", function () {
     [wallet, other] = await ethers.getSigners();
     
     // Deploy the factory
-    const UniswapV2Factory = await ethers.getContractFactory("UniswapV2Factory");
-    factory = await UniswapV2Factory.deploy(wallet.address);
+    const EdgenSwapFactory = await ethers.getContractFactory("EdgenSwapFactory");
+    factory = await EdgenSwapFactory.deploy(wallet.address);
     await factory.deployed();
     
     // Generate test addresses
@@ -51,9 +51,9 @@ describe("UniswapV2Factory", function () {
   
   async function createPair(tokens) {
     // Get pair creation bytecode for CREATE2 address calculation
-    const UniswapV2Pair = await ethers.getContractFactory("UniswapV2Pair");
+    const EdgenSwapPair = await ethers.getContractFactory("EdgenSwapPair");
     // Make sure we're using the proper bytecode format
-    const bytecode = UniswapV2Pair.bytecode;
+    const bytecode = EdgenSwapPair.bytecode;
     const create2Address = getCreate2Address(factory.address, tokens, bytecode);
     
     // Create the pair and check events
@@ -67,8 +67,8 @@ describe("UniswapV2Factory", function () {
       );
     
     // Test reverse order and duplicates
-    await expect(factory.createPair(tokens[0], tokens[1])).to.be.reverted; // UniswapV2: PAIR_EXISTS
-    await expect(factory.createPair(tokens[1], tokens[0])).to.be.reverted; // UniswapV2: PAIR_EXISTS
+    await expect(factory.createPair(tokens[0], tokens[1])).to.be.reverted; // EdgenSwap: PAIR_EXISTS
+    await expect(factory.createPair(tokens[1], tokens[0])).to.be.reverted; // EdgenSwap: PAIR_EXISTS
     
     // Check getPair and allPairs functionality
     expect(await factory.getPair(tokens[0], tokens[1])).to.eq(create2Address);
@@ -77,7 +77,7 @@ describe("UniswapV2Factory", function () {
     expect(await factory.allPairsLength()).to.eq(1);
     
     // Get the pair contract and check its properties
-    const pair = await ethers.getContractAt("UniswapV2Pair", create2Address);
+    const pair = await ethers.getContractAt("EdgenSwapPair", create2Address);
     expect(await pair.factory()).to.eq(factory.address);
     expect(await pair.token0()).to.eq(tokens[0].toLowerCase() < tokens[1].toLowerCase() ? tokens[0] : tokens[1]);
     expect(await pair.token1()).to.eq(tokens[0].toLowerCase() < tokens[1].toLowerCase() ? tokens[1] : tokens[0]);
@@ -99,7 +99,7 @@ describe("UniswapV2Factory", function () {
   
   it("setFeeTo", async function () {
     await expect(factory.connect(other).setFeeTo(other.address))
-      .to.be.revertedWith("UniswapV2: FORBIDDEN");
+      .to.be.revertedWith("EdgenSwap: FORBIDDEN");
       
     await factory.setFeeTo(wallet.address);
     expect(await factory.feeTo()).to.eq(wallet.address);
@@ -107,12 +107,12 @@ describe("UniswapV2Factory", function () {
   
   it("setFeeToSetter", async function () {
     await expect(factory.connect(other).setFeeToSetter(other.address))
-      .to.be.revertedWith("UniswapV2: FORBIDDEN");
+      .to.be.revertedWith("EdgenSwap: FORBIDDEN");
       
     await factory.setFeeToSetter(other.address);
     expect(await factory.feeToSetter()).to.eq(other.address);
     
     await expect(factory.setFeeToSetter(wallet.address))
-      .to.be.revertedWith("UniswapV2: FORBIDDEN");
+      .to.be.revertedWith("EdgenSwap: FORBIDDEN");
   });
 }); 

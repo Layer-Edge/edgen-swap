@@ -1,6 +1,6 @@
-# UniswapV2 Core - Hardhat Testing Environment
+# EdgenSwap Core - Hardhat Testing Environment
 
-This directory contains Hardhat scripts and tests for the UniswapV2 Core contracts.
+This directory contains Hardhat scripts and tests for the EdgenSwap Core contracts.
 
 ## Setup
 
@@ -54,7 +54,7 @@ yarn node
 
 ## Deployment Scripts
 
-Deploy the UniswapV2Factory to the local node:
+Deploy the EdgenSwapFactory to the local node:
 
 ```bash
 yarn deploy:local
@@ -92,7 +92,7 @@ The provided Hardhat config supports both local testing and mainnet forking for 
 
 ## Scripts Directory
 
-- `deploy.js`: Deploys the UniswapV2Factory contract
+- `deploy.js`: Deploys the EdgenSwapFactory contract
 - `deploy-test-tokens.js`: Deploys test ERC20 tokens for testing
 - `create-pair.js`: Creates a pair between two tokens using the factory
 - `add-liquidity-and-swap.js`: Adds liquidity to a pair and performs a swap

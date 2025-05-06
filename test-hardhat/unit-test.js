@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("UniswapV2", function () {
+describe("EdgenSwap", function () {
   let factory;
   let tokenA;
   let tokenB;
@@ -16,8 +16,8 @@ describe("UniswapV2", function () {
     [owner, user] = await ethers.getSigners();
     
     // Deploy the factory
-    const UniswapV2Factory = await ethers.getContractFactory("UniswapV2Factory");
-    factory = await UniswapV2Factory.deploy(owner.address);
+    const EdgenSwapFactory = await ethers.getContractFactory("EdgenSwapFactory");
+    factory = await EdgenSwapFactory.deploy(owner.address);
     await factory.deployed();
     
     // Deploy test tokens
@@ -34,7 +34,7 @@ describe("UniswapV2", function () {
     const pairAddress = await factory.getPair(tokenA.address, tokenB.address);
     
     // Get the pair contract
-    pair = await ethers.getContractAt("UniswapV2Pair", pairAddress);
+    pair = await ethers.getContractAt("EdgenSwapPair", pairAddress);
     
     // Determine token0 and token1
     const token0Address = await pair.token0();
@@ -45,7 +45,7 @@ describe("UniswapV2", function () {
     }
   });
   
-  describe("UniswapV2Factory", function () {
+  describe("EdgenSwapFactory", function () {
     it("Should set the correct feeToSetter", async function () {
       expect(await factory.feeToSetter()).to.equal(owner.address);
     });
@@ -68,17 +68,17 @@ describe("UniswapV2", function () {
     
     it("Should revert when creating the same pair again", async function () {
       await expect(factory.createPair(tokenA.address, tokenB.address))
-        .to.be.revertedWith("UniswapV2: PAIR_EXISTS");
+        .to.be.revertedWith("EdgenSwap: PAIR_EXISTS");
     });
     
     it("Should revert when creating pair with identical tokens", async function () {
       await expect(factory.createPair(tokenA.address, tokenA.address))
-        .to.be.revertedWith("UniswapV2: IDENTICAL_ADDRESSES");
+        .to.be.revertedWith("EdgenSwap: IDENTICAL_ADDRESSES");
     });
     
     it("Should only allow feeToSetter to change feeTo", async function () {
       await expect(factory.connect(user).setFeeTo(user.address))
-        .to.be.revertedWith("UniswapV2: FORBIDDEN");
+        .to.be.revertedWith("EdgenSwap: FORBIDDEN");
       
       await factory.setFeeTo(owner.address);
       expect(await factory.feeTo()).to.equal(owner.address);
@@ -86,18 +86,18 @@ describe("UniswapV2", function () {
     
     it("Should only allow feeToSetter to change feeToSetter", async function () {
       await expect(factory.connect(user).setFeeToSetter(user.address))
-        .to.be.revertedWith("UniswapV2: FORBIDDEN");
+        .to.be.revertedWith("EdgenSwap: FORBIDDEN");
       
       await factory.setFeeToSetter(user.address);
       expect(await factory.feeToSetter()).to.equal(user.address);
       
       // Now the original owner can't change it anymore
       await expect(factory.setFeeToSetter(owner.address))
-        .to.be.revertedWith("UniswapV2: FORBIDDEN");
+        .to.be.revertedWith("EdgenSwap: FORBIDDEN");
     });
   });
   
-  describe("UniswapV2Pair", function () {
+  describe("EdgenSwapPair", function () {
     it("Should mint liquidity tokens correctly", async function () {
       const token0Amount = ethers.utils.parseEther("1");
       const token1Amount = ethers.utils.parseEther("4");

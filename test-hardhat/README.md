@@ -1,12 +1,12 @@
-# UniswapV2 Hardhat Tests
+# EdgenSwap Hardhat Tests
 
 This directory contains unit tests for the Uniswap V2 Core contracts using Hardhat and ethers.js v5.7.
 
 ## Directory Structure
 
-- `UniswapV2Factory.test.js`: Tests for the factory contract
-- `UniswapV2Pair.test.js`: Tests for the pair contract
-- `UniswapV2ERC20.test.js`: Tests for the ERC20 implementation
+- `EdgenSwapFactory.test.js`: Tests for the factory contract
+- `EdgenSwapPair.test.js`: Tests for the pair contract
+- `EdgenSwapERC20.test.js`: Tests for the ERC20 implementation
 - `shared/`: Helper utilities and fixtures
   - `utilities.js`: Common utility functions
   - `fixtures.js`: Test fixtures for deploying contracts
@@ -30,7 +30,7 @@ Then run the tests with:
 npx hardhat test test-hardhat/*.test.js
 
 # Run a specific test
-npx hardhat test test-hardhat/UniswapV2Pair.test.js
+npx hardhat test test-hardhat/EdgenSwapPair.test.js
 ```
 
 ## Test Coverage

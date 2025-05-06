@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 const { pairFixture } = require("./shared/fixtures");
 const { expandTo18Decimals, mineBlock, encodePrice } = require("./shared/utilities");
 
-describe("UniswapV2Pair", function () {
+describe("EdgenSwapPair", function () {
   // Constants
   const MINIMUM_LIQUIDITY = ethers.BigNumber.from(10).pow(3);
   const overrides = { gasLimit: 9999999 };
@@ -76,7 +76,7 @@ describe("UniswapV2Pair", function () {
       await addLiquidity(token0Amount, token1Amount);
       await token0.transfer(pair.address, swapAmount);
       await expect(pair.swap(0, expectedOutputAmount.add(1), wallet.address, "0x", overrides))
-        .to.be.revertedWith("UniswapV2: K");
+        .to.be.revertedWith("EdgenSwap: K");
       await pair.swap(0, expectedOutputAmount, wallet.address, "0x", overrides);
     });
   });

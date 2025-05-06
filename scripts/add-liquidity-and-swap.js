@@ -11,13 +11,13 @@ async function main() {
     throw new Error("FACTORY_ADDRESS, TOKEN_A_ADDRESS, and TOKEN_B_ADDRESS environment variables must be set.");
   }
   
-  console.log(`Using UniswapV2Factory at: ${factoryAddress}`);
+  console.log(`Using EdgenSwapFactory at: ${factoryAddress}`);
   console.log(`Token A: ${tokenAAddress}`);
   console.log(`Token B: ${tokenBAddress}`);
   
   // Get contract instances
   const [signer] = await hre.ethers.getSigners();
-  const factory = await hre.ethers.getContractAt("UniswapV2Factory", factoryAddress, signer);
+  const factory = await hre.ethers.getContractAt("EdgenSwapFactory", factoryAddress, signer);
   const tokenA = await hre.ethers.getContractAt("ERC20Mock", tokenAAddress, signer);
   const tokenB = await hre.ethers.getContractAt("ERC20Mock", tokenBAddress, signer);
   
@@ -32,7 +32,7 @@ async function main() {
   }
   
   console.log(`Using pair at: ${pairAddress}`);
-  const pair = await hre.ethers.getContractAt("UniswapV2Pair", pairAddress, signer);
+  const pair = await hre.ethers.getContractAt("EdgenSwapPair", pairAddress, signer);
   
   // Check token order
   const token0Address = await pair.token0();

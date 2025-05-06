@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe.skip("UniswapV2", function () {
+describe("UniswapV2", function () {
   let factory;
   let tokenA;
   let tokenB;

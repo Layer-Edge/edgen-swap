@@ -77,6 +77,7 @@ function encodePrice(reserve0, reserve1) {
 async function getSignatureFromDigest(digest, wallet) {
   const signingKey = new ethers.utils.SigningKey(wallet.privateKey);
   const signature = signingKey.signDigest(digest);
+
   return {
     v: signature.v,
     r: signature.r,

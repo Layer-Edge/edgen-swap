@@ -14,7 +14,7 @@ describe("UniswapV2Factory", function () {
       : [tokens[1], tokens[0]];
       
     const salt = ethers.utils.keccak256(
-      ethers.utils.defaultAbiCoder.encode(
+      ethers.utils.solidityPack(
         ["address", "address"],
         [token0, token1]
       )

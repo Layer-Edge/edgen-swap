@@ -12,7 +12,6 @@ describe("UniswapV2ERC20", function () {
   
   beforeEach(async function () {
     [wallet, other] = await ethers.getSigners();
-    
     // Deploy the ERC20 implementation (Use ERC20 contract from the core repo directly)
     const ERC20 = await ethers.getContractFactory("ERC20");
     token = await ERC20.deploy(TOTAL_SUPPLY);
@@ -103,7 +102,10 @@ describe("UniswapV2ERC20", function () {
   });
   
   it("permit", async function () {
+    wallet = ethers.Wallet.createRandom();
+    other = ethers.Wallet.createRandom();
     const nonce = await token.nonces(wallet.address);
+
     const deadline = ethers.constants.MaxUint256;
     const chainId = (await ethers.provider.getNetwork()).chainId;
     
@@ -123,6 +125,8 @@ describe("UniswapV2ERC20", function () {
         ]
       )
     );
+
+    expect(DOMAIN_SEPARATOR).to.eq(await token.DOMAIN_SEPARATOR());
     
     const PERMIT_TYPEHASH = await token.PERMIT_TYPEHASH();
     

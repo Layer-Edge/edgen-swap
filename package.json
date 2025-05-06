@@ -52,7 +52,10 @@
     "deploy": "hardhat run scripts/deploy.js",
     "verify": "hardhat run scripts/verify.js",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network baseSepolia",
-    "deploy:mainnet": "hardhat run scripts/deploy.js --network baseMainnet"
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network baseMainnet",
+    "deploy:test-tokens": "hardhat run scripts/deploy-test-tokens.js",
+    "create-pair": "hardhat run scripts/create-pair.js",
+    "add-liquidity-and-swap": "hardhat run scripts/add-liquidity-and-swap.js"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {}
